@@ -1,0 +1,2 @@
+# Music
+	com.spotify.Client: Spotify, Music app
