@@ -81,7 +81,7 @@ To uninstall `flathub` run in the terminal:
    ./install/install_*.sh
    ```
 
-# List of apps
+## List of apps
 
 - System Tools 
    - **htop**: Interactive process viewer 
