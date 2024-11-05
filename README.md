@@ -1,4 +1,4 @@
-# Install Applications for Fast Setup
+# Install Applications for Fast Setup on Ubuntu
 
 ## Overview
 
