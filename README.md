@@ -15,7 +15,7 @@ Installed by default on Ubuntu system:
 - `gpg` for cryptographic security
 
 ## Usage
-The following commands should be run from the main directory, which is named `first_setup`.
+The following commands should be run from the main directory, which is named `First_Setup_Apps`.
 
 1. **Follow the Prompts**:
 	Choose whether to install all applications or select specific ones through the graphical interface.
