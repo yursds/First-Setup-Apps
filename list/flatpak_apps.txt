@@ -1,2 +1,2 @@
-# Music
-	com.spotify.Client: Spotify, Music app
+# Editing
+	org.kde.kdenlive: Video editing
