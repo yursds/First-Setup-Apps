@@ -1,65 +1,22 @@
 # Applications for Fast Setup on Ubuntu
 
-## Overview
-
-This script helps in installing various applications on Ubuntu using the `apt` package manager. The list of apps are in the folder `list` that contains `apt_apps.txt`. The script provides an option to install **All Apps** at once or to **Specific Apps** using a graphical interface with `zenity`.  
-At the end a list of additional application useful that you have to download from official sites.
-
-
 ## Table of Contents 
 - [Overview](#overview) 
+   - [List of apps](#list-of-apps) 
 - [Prerequisites](#prerequisites) 
 - [Usage](#usage) 
    - [Clone of repository](#clone-of-repository) 
    - [Installation](#installation) 
    - [Uninstallation](#uninstallation) 
-- [List of apps](#list-of-apps) 
 - [Additional Recommended Apps](#additional-recommended-apps)
 
-## Prerequisites
-Installed by default on Ubuntu system:
+## Overview
 
-- `apt` package manager;
-- `zenity` for the graphical interface.
+This script helps in installing various applications on Ubuntu using the `apt` package manager.  
+The list of apps is in `apt_apps.txt`.  
+The script provides an option to install **All Apps** or **Specific Apps** using a graphical interface with `zenity`.
 
-In addition:
-
-- `git-all` to clone this repository.
-   ```bash
-   sudo apt-get install git-all
-   ```
-
-## Usage
-The following commands should be run from the main directory, which is named `First_Setup_Apps`.
-
-1. **Follow the Prompts**:
-	Choose whether to install all applications or select specific ones through the graphical interface.
-
-1. **Check the Summary**:
-   The script will provide a summary of installed and not installed applications after execution.
-
-
-### Clone of repository
-Run in the terminal:
-   ```bash
-   git clone https://github.com/yursds/First_Setup_Apps.git
-   cd First_Setup_Apps
-   ```
-
-### Installation
-
-Run in the terminal from main folder `First_Setup_Apps`:
-   ```bash
-   ./install_apt.sh
-   ```
-
-### Uninstallation
-Run in the terminal from main folder `First_Setup_Apps`:
-   ```bash
-   ./uninstall_apt.sh
-   ```
-
-## List of apps
+### List of apps
 
 - System Tools 
    - **htop**: Interactive process viewer 
@@ -80,6 +37,54 @@ Run in the terminal from main folder `First_Setup_Apps`:
    - **gnome-tweaks**: Tweak tool for GNOME 
 - Development Tools
    - **tree**: tool to see directory structure of a path
+
+At the bottom of this page you can find [additional recommended applications](#additional-recommended-apps), that you can download from official sites.
+
+
+## Prerequisites
+Installed by default on Ubuntu system:
+
+- `apt` package manager;
+- `zenity` for the graphical interface.
+
+In addition:
+
+- `git-all` to clone this repository.
+   ```bash
+   sudo apt-get install git-all
+   ```
+
+## Usage
+
+### Clone of repository
+Run in the terminal:
+   ```bash
+   git clone https://github.com/yursds/First_Setup_Apps.git
+   cd First_Setup_Apps
+   ```
+
+---
+
+The following commands should be run from the main directory, which is named `First_Setup_Apps`.
+
+1. **Follow the Prompts**:
+	Choose whether to install all applications or select specific ones through the graphical interface.
+
+1. **Check the Summary**:
+   The script will provide a summary of installed and not installed applications after execution.
+
+### Installation
+
+Run in the terminal from main folder `First_Setup_Apps`:
+   ```bash
+   ./install_apt.sh
+   ```
+
+### Uninstallation
+Run in the terminal from main folder `First_Setup_Apps`:
+   ```bash
+   ./uninstall_apt.sh
+   ```
 
 ## Additional Recommended Apps
 For more fast first setup the following packages are not included in the installation list.
