@@ -74,7 +74,7 @@ if [ $? -eq 1 ]; then
     exit 1
 fi
 
-if [ "$user_choice" == "Uninstall All" ]; then
+if [ "$user_choice" == "All Apps" ]; then
     # Uninstall all applications
     for app in "${apps_to_uninstall[@]}"; do
         check_and_uninstall "$(echo $app | cut -d ':' -f 1)"

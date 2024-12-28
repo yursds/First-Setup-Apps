@@ -2,6 +2,7 @@
 
 # Define color codes
 RED='\033[0;31m'
+YELLOW='\033[33m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
@@ -10,12 +11,14 @@ LIST='./apt_apps.txt'
 
 # Arrays to hold the status of applications
 installed_apps=()
+already_installed_apps=()
 not_installed_apps=()
 
 # Function to check if a package is installed and install it if not
 check_and_install() {
     if dpkg -l | grep -q "$1"; then
-        echo -e "${GREEN}$1 is already installed.${NC}"
+        echo -e "${YELLOW}$1 is already installed.${NC}"
+        already_installed_apps+=("$1")
     else
         echo -e "${GREEN}Installing $1...${NC}"
         sudo apt install -y "$1"
@@ -31,6 +34,7 @@ check_and_install() {
 
 # Read applications from the text file, skip empty lines and lines starting with '#'
 mapfile -t apps_to_install < <(grep -vE '^(#|$)' ${LIST})
+
 
 # Prepare the options for Zenity checklist
 zenity_options=()
@@ -74,7 +78,7 @@ if [ $? -eq 1 ]; then
     exit 1
 fi
 
-if [ "$user_choice" == "Install All" ]; then
+if [ "$user_choice" == "All Apps" ]; then
     # Install all applications
     for app in "${apps_to_install[@]}"; do
         check_and_install "$(echo $app | cut -d ':' -f 1)"
@@ -99,11 +103,7 @@ else
     fi
     # Install selected applications
     for app in $apps_selected; do
-        if [[ "$app" == "code:"* ]]; then
-            ./scripts/install_vscode.sh
-        else
-            check_and_install "$app"
-        fi
+        check_and_install "$app"
     done
 fi
 
@@ -111,6 +111,13 @@ fi
 if [ ${#installed_apps[@]} -ne 0 ]; then
     echo -e "\nInstalled applications:"
     for app in "${installed_apps[@]}"; do
+        echo -e "- $app"
+    done
+fi
+
+if [ ${#already_installed_apps[@]} -ne 0 ]; then
+    echo -e "\n${YELLOW}Already installed applications:"
+    for app in "${already_installed_apps[@]}"; do
         echo -e "- $app"
     done
 fi
@@ -123,4 +130,3 @@ if [ ${#not_installed_apps[@]} -ne 0 ]; then
 fi
 
 echo -e "\n${GREEN}Script completed.${NC}"
-
