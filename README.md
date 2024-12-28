@@ -91,9 +91,9 @@ For a faster first setup, the following packages are not included in the install
 
 For LaTeX users, the recommended applications are the following:
    - LaTeX Tools
-      - **klatexformula**: LaTeX formula editor 
-      - **texstudio**: LaTeX editor
-      - **texlive-full**: Comprehensive TeX system  
+      - **klatexformula**: LaTeX formula editor;
+      - **texstudio**: LaTeX editor;
+      - **texlive-full**: Comprehensive TeX system;  
       
          **ATTENTION**  
          When installing `texlive-full`, as reported in this [issue](https://bugs.launchpad.net/ubuntu/+source/context/+bug/2058409), the process may get stuck at:
@@ -107,5 +107,5 @@ From official sites, it is recommended to install the following *must-have* appl
 
    - [**code**](https://code.visualstudio.com/): Visual Studio Code;
    - [**inkscape**](https://inkscape.org/): Vector graphics editor;
-   - [**ferdium**](https://ferdium.org/): Organizer of favorite cllient apps.
+   - [**ferdium**](https://ferdium.org/): Organizer of favorite cllient apps;
    - [**spotify**](https://www.spotify.com/it/download/linux/): Music player.
