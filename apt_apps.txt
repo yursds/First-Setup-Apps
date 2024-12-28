@@ -1,0 +1,23 @@
+# System Tools
+    htop: Interactive process viewer
+    neofetch: System information tool
+    terminator: Terminal emulator
+    timeshift: System restore tool
+
+# Media and Editing
+    vlc: Media player
+    cheese: Simple application for webcam
+    gimp: Image editor
+    kdenlive: Video editor
+
+# PDF Tools
+    krop: PDF cropping tool
+    pdfarranger: PDF file manipulation
+
+# GNOME Extensions
+    gnome-shell-extensions: Collection of shell extensions for GNOME
+    gnome-shell-extension-manager: Manage GNOME Shell extensions
+    gnome-tweaks: Tweak tool for GNOME
+
+# Development Tools
+    tree: tool to see directory structure of a path
