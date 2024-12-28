@@ -87,7 +87,6 @@ Run in the terminal from main folder `First_Setup_Apps`:
    ```
 
 ## Additional Recommended Apps
-For more fast first setup the following packages are not included in the installation list.
 For a faster first setup, the following packages are not included in the installation list.
 
 For LaTeX users, the recommended applications are the following:
