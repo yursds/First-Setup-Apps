@@ -89,7 +89,7 @@ Run in the terminal from the main folder `First_Setup_Apps`:
 ## Additional Recommended Apps and Steps
 For a faster first setup, the following packages are not included in the installation list.
 
-For LaTeX users, the recommended applications are the following:
+- For LaTeX users, the recommended applications are the following:
    - LaTeX Tools
       - **klatexformula**: LaTeX formula editor;
       - **texstudio**: LaTeX editor;
@@ -103,13 +103,13 @@ For LaTeX users, the recommended applications are the following:
          ```
          to resolve this, simply press the Enter button multiple times.
 
-From official sites, it is recommended to install the following *must-have* applications:
+- From official sites, it is recommended to install the following *must-have* applications:
 
    - [**code**](https://code.visualstudio.com/): Visual Studio Code;
    - [**inkscape**](https://inkscape.org/): Vector graphics editor;
    - [**ferdium**](https://ferdium.org/): Organizer of favorite client apps;
    - [**WPS office**](https://it.wps.com/)): suite office (compatible with MS office).
 
-For more robust authentication with GitHub, it is recommended using [**GitHub CLI**](https://github.com/cli/cli/blob/trunk/docs/install_linux.md)
+- For more robust authentication with GitHub, it is recommended using [**GitHub CLI**](https://github.com/cli/cli/blob/trunk/docs/install_linux.md)
 
-For docker installation it is useful to follow the preliminaries instructions on the repository [**docker_ros_nvidia**](https://github.com/yursds/docker_ros_nvidia)
+- For docker installation it is useful to follow the preliminaries instructions on the repository [**docker_ros_nvidia**](https://github.com/yursds/docker_ros_nvidia)
