@@ -8,7 +8,7 @@
    - [Clone of repository](#clone-of-repository) 
    - [Installation](#installation) 
    - [Uninstallation](#uninstallation) 
-- [Additional Recommended Apps](#additional-recommended-apps)
+- [Additional Recommended Apps and Steps](#additional-recommended-apps-and-steps)
 
 ## Overview
 
@@ -75,18 +75,18 @@ The following commands should be run from the main directory, which is named `Fi
 
 ### Installation
 
-Run in the terminal from main folder `First_Setup_Apps`:
+Run in the terminal from the main folder `First_Setup_Apps`:
    ```bash
    ./install_apt.sh
    ```
 
 ### Uninstallation
-Run in the terminal from main folder `First_Setup_Apps`:
+Run in the terminal from the main folder `First_Setup_Apps`:
    ```bash
    ./uninstall_apt.sh
    ```
 
-## Additional Recommended Apps
+## Additional Recommended Apps and Steps
 For a faster first setup, the following packages are not included in the installation list.
 
 For LaTeX users, the recommended applications are the following:
@@ -107,5 +107,9 @@ From official sites, it is recommended to install the following *must-have* appl
 
    - [**code**](https://code.visualstudio.com/): Visual Studio Code;
    - [**inkscape**](https://inkscape.org/): Vector graphics editor;
-   - [**ferdium**](https://ferdium.org/): Organizer of favorite cllient apps;
-   - [**spotify**](https://www.spotify.com/it/download/linux/): Music player.
+   - [**ferdium**](https://ferdium.org/): Organizer of favorite client apps;
+   - [**WPS office**](https://it.wps.com/)): suite office (compatible with MS office).
+
+For more robust authentication with GitHub, it is recommended using [**GitHub CLI**](https://github.com/cli/cli/blob/trunk/docs/install_linux.md)
+
+For docker installation it is useful to follow the preliminaries instructions on the repository [**docker_ros_nvidia**](https://github.com/yursds/docker_ros_nvidia)
