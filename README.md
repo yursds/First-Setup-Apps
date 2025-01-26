@@ -37,6 +37,7 @@ The script provides an option to install **All Apps** or **Specific Apps** using
    - **gnome-tweaks**: Tweak tool for GNOME 
 - Development Tools
    - **tree**: tool to see directory structure of a path
+   - **dconf-editor**: viewer and editor of applications internal settings.
 
 At the bottom of this page you can find [additional recommended applications](#additional-recommended-apps), that you can download from official sites.
 
@@ -108,8 +109,8 @@ For a faster first setup, the following packages are not included in the install
    - [**code**](https://code.visualstudio.com/): Visual Studio Code;
    - [**inkscape**](https://inkscape.org/): Vector graphics editor;
    - [**ferdium**](https://ferdium.org/): Organizer of favorite client apps;
-   - [**WPS office**](https://it.wps.com/)): suite office (compatible with MS office).
+   - [**WPS office**](https://it.wps.com/): suite office (compatible with MS office).
 
-- For more robust authentication with GitHub, it is recommended using [**GitHub CLI**](https://github.com/cli/cli/blob/trunk/docs/install_linux.md)
+- For more robust authentication with GitHub, it is recommended using [**GitHub CLI**](https://github.com/cli/cli/blob/trunk/docs/install_linux.md).
 
-- For docker installation it is useful to follow the preliminaries instructions on the repository [**docker_ros_nvidia**](https://github.com/yursds/docker_ros_nvidia)
+- For docker installation it is useful to follow the preliminaries instructions on the repository [**docker_ros_nvidia**](https://github.com/yursds/docker_ros_nvidia).
