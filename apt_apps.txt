@@ -20,4 +20,4 @@
     gnome-tweaks: Tweak tool for GNOME
 
 # Development Tools
-    tree: tool to see directory structure of a path
+    tree: Tool to see directory structure of a path
