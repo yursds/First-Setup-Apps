@@ -10,7 +10,7 @@ LIST='./apt_apps.txt'
 
 # Function to check if a package is installed and uninstall it
 check_and_uninstall() {
-    if dpkg -l | grep -q "$1"; then
+    if which $1; then
         echo -e "${RED}Removing $1...${NC}"
         sudo apt remove -y "$1"
         if [ $? -eq 0 ]; then

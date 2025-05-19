@@ -16,7 +16,7 @@ not_installed_apps=()
 
 # Function to check if a package is installed and install it if not
 check_and_install() {
-    if dpkg -l | grep -q "$1"; then
+    if which $1; then
         echo -e "${YELLOW}$1 is already installed.${NC}"
         already_installed_apps+=("$1")
     else
