@@ -20,9 +20,11 @@ The script provides an option to install **All Apps** or **Specific Apps** using
 
 - System Tools 
    - **htop**: Interactive process viewer 
+   - **nvtop**: Interactive process viewer (support NVIDIA GPU)
    - **neofetch**: System information tool 
    - **terminator**: Terminal emulator 
    - **timeshift**: System restore tool 
+   - **rclone**: Tool to synchronize a Linux directory with cloud storage services [[link]](https://copilot.microsoft.com/chats/Q8tYhyV1BQHUBjo9DWgQU)
 - Media and Editing
    - **vlc**: Media player 
    - **cheese**: Simple application for webcam
@@ -36,8 +38,10 @@ The script provides an option to install **All Apps** or **Specific Apps** using
    - **gnome-shell-extension-manager**: Manage GNOME Shell extensions 
    - **gnome-tweaks**: Tweak tool for GNOME 
 - Development Tools
-   - **tree**: tool to see directory structure of a path
-   - **dconf-editor**: viewer and editor of applications internal settings.
+   - **tree**: Tool to see directory structure of a path
+   - **dconf-editor**: Viewer and editor of applications internal settings.
+- Extra
+   - **oneko**: Try it!
 
 At the bottom of this page you can find [additional recommended applications](#additional-recommended-apps), that you can download from official sites.
 
