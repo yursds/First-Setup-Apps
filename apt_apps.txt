@@ -1,8 +1,10 @@
 # System Tools
     htop: Interactive process viewer
+    nvtop: Interactive process viewer (support NVIDIA GPU)
     neofetch: System information tool
     terminator: Terminal emulator
     timeshift: System restore tool
+    rclone: Tool to synchronize a Linux directory with cloud storage services
 
 # Media and Editing
     vlc: Media player
@@ -21,5 +23,7 @@
 
 # Development Tools
     tree: Tool to see directory structure of a path
-    dconf-editor: Viewer and editor of applications internal settings.
+    dconf-editor: Viewer and editor of applications internal settings
 
+# Extra
+    oneko: Try it!
