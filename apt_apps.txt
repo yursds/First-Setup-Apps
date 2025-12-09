@@ -1,20 +1,21 @@
 # System Tools
-    htop: Interactive process viewer
+    htop: Interactive process viewer (simple)
+    btop: Interactive process viewer (CPU, RAM, Disk, Network)
     nvtop: Interactive process viewer (support NVIDIA GPU)
     neofetch: System information tool
     terminator: Terminal emulator
-    timeshift: System restore tool
+    timeshift: System restore tool [OPTIONAL]
     rclone: Tool to synchronize a Linux directory with cloud storage services
 
 # Media and Editing
     vlc: Media player
-    cheese: Simple application for webcam
-    gimp: Image editor
-    kdenlive: Video editor
+    cheese: Simple application for webcam [OPTIONAL]
+    gimp: Image editor [OPTIONAL]
+    kdenlive: Video editor [OPTIONAL]
 
 # PDF Tools
-    krop: PDF cropping tool
-    pdfarranger: PDF file manipulation
+    krop: PDF cropping tool [OPTIONAL]
+    pdfarranger: PDF file manipulation [OPTIONAL]
 
 # GNOME Extensions
     gnome-shell-extensions: Collection of shell extensions for GNOME
@@ -23,7 +24,7 @@
 
 # Development Tools
     tree: Tool to see directory structure of a path
-    dconf-editor: Viewer and editor of applications internal settings
+    dconf-editor: Viewer and editor of applications internal settings [ADVANCED]
 
 # Extra
-    oneko: Try it!
+    oneko: Try it! [OPTIONAL]
