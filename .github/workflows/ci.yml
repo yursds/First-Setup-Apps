@@ -54,3 +54,5 @@ jobs:
         # Execute the script with the --auto flag to skip Zenity GUI
         # REPLACE 'YOUR_SCRIPT_NAME.sh' WITH YOUR ACTUAL FILENAME
         run: ./install_apt.sh --auto
+        echo "Installation done. Testing uninstallation..."
+        ./uninstall_apt.sh --auto
