@@ -1,0 +1,56 @@
+name: Bash Script CI
+
+# Trigger the workflow on push or pull request events for the main branch
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+jobs:
+  # JOB 1: Static Analysis (Linting)
+  # This job checks for syntax errors and best practices using ShellCheck.
+  shellcheck:
+    name: Lint Script (ShellCheck)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v3
+
+      - name: Run ShellCheck
+        # Uses the standard ShellCheck action to analyze all .sh files
+        uses: ludeeus/action-shellcheck@master
+        with:
+          # Optional: exclude specific checks if needed (e.g., SC2086)
+          # ignore: SC2086
+          scandir: './'
+
+  # JOB 2: Execution Test
+  # This job runs the script in a clean Ubuntu environment to verify installation logic.
+  install-test:
+    name: Run Install Test (Headless)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v3
+
+      - name: Make script executable
+        # Ensure the script has execution permissions
+        run: chmod +x *.sh
+
+      - name: Verify configuration file
+        # Check if the list of apps exists before running
+        run: |
+          if [ ! -f "./apt_apps.txt" ]; then
+            echo "Error: apt_apps.txt file not found!"
+            exit 1
+          fi
+
+      - name: Update APT cache
+        # Update package lists to prevent 404 errors during installation
+        run: sudo apt-get update
+
+      - name: Run Script in Auto Mode
+        # Execute the script with the --auto flag to skip Zenity GUI
+        # REPLACE 'YOUR_SCRIPT_NAME.sh' WITH YOUR ACTUAL FILENAME
+        run: ./install_apt.sh --auto
