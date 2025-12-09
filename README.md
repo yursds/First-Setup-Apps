@@ -125,5 +125,5 @@ For a faster first setup, the following packages are not included in the install
 
 ## Additional Recommended Repositories
 
-	- [**nautilus-open-any-terminal**](https://github.com/Stunkymonkey/nautilus-open-any-terminal)
-	- [**https://github.com/harry-cpp/code-nautilus**](https://github.com/harry-cpp/code-nautilus)
+- [**nautilus-open-any-terminal**](https://github.com/Stunkymonkey/nautilus-open-any-terminal)
+- [**https://github.com/harry-cpp/code-nautilus**](https://github.com/harry-cpp/code-nautilus)
