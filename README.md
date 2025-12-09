@@ -15,6 +15,7 @@
 This script helps in installing various applications on Ubuntu using the `apt` package manager.  
 The list of apps is in `apt_apps.txt`.  
 The script provides an option to install **All Apps** or **Specific Apps** using a graphical interface with `zenity`.
+
 **NOTE**: After installation you can remove the folder `First-Setup-Apps`.
 
 ### List of apps
