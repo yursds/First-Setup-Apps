@@ -9,6 +9,7 @@
    - [Installation](#installation) 
    - [Uninstallation](#uninstallation) 
 - [Additional Recommended Apps and Steps](#additional-recommended-apps-and-steps)
+- [Additional Recommended Repositories](#additional-recommended-repositories)
 
 ## Overview
 
@@ -121,3 +122,8 @@ For a faster first setup, the following packages are not included in the install
 - For more robust authentication with GitHub, it is recommended using [**GitHub CLI**](https://github.com/cli/cli/blob/trunk/docs/install_linux.md). Follow the official instruction to complete the authentication. 
 
 - For docker installation it is useful to follow the preliminaries instructions on the repository [**docker_ros_nvidia**](https://github.com/yursds/docker_ros_nvidia). [OLD VERSION]
+
+## Additional Recommended Repositories
+
+	- [**nautilus-open-any-terminal**](https://github.com/Stunkymonkey/nautilus-open-any-terminal)
+	- [**https://github.com/harry-cpp/code-nautilus**](https://github.com/harry-cpp/code-nautilus)
