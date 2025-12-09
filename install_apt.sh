@@ -27,19 +27,20 @@ not_installed_apps=()
 
 # Function to check if a package is installed and install it if not
 check_and_install() {
-    # FIX SC2086: Quoted variable $1
-    if dpkg -s "$1" &> /dev/null; then
-        echo -e "${YELLOW}$1 is already installed.${NC}"
-        already_installed_apps+=("$1")
+    # FIX: Ensure clean variable name
+    pkg_name=$(echo "$1" | xargs)
+    
+    if dpkg -s "$pkg_name" &> /dev/null; then
+        echo -e "${YELLOW}$pkg_name is already installed.${NC}"
+        already_installed_apps+=("$pkg_name")
     else
-        echo -e "${GREEN}Installing $1...${NC}"
-        # FIX SC2181: Check exit code directly in the if statement
-        if sudo DEBIAN_FRONTEND=noninteractive apt install -y "$1"; then
-            echo -e "${GREEN}$1 installation successful.${NC}"
-            installed_apps+=("$1")
+        echo -e "${GREEN}Installing $pkg_name...${NC}"
+        if sudo DEBIAN_FRONTEND=noninteractive apt install -y "$pkg_name"; then
+            echo -e "${GREEN}$pkg_name installation successful.${NC}"
+            installed_apps+=("$pkg_name")
         else
-            echo -e "${RED}Error installing $1.${NC}"
-            not_installed_apps+=("$1")
+            echo -e "${RED}Error installing $pkg_name.${NC}"
+            not_installed_apps+=("$pkg_name")
         fi
     fi
 }
@@ -62,12 +63,11 @@ if [ "$INTERACTIVE" = true ]; then
         if [[ -z "$line" ]]; then continue; fi
         
         if [[ $line =~ ^# ]]; then
-            # FIX SC2001: Use bash string manipulation instead of sed
             current_category=${line#\# }
         else
-            # FIX SC2086: Quoted $line to prevent globbing
-            name=$(echo "$line" | cut -d ':' -f 1)
-            description=$(echo "$line" | cut -d ':' -f 2)
+            # FIX: trim whitespace using xargs
+            name=$(echo "$line" | cut -d ':' -f 1 | xargs)
+            description=$(echo "$line" | cut -d ':' -f 2 | xargs)
             if [[ -z "$description" ]]; then description="No description available"; fi
             zenity_options+=("FALSE" "$name" "$current_category: $description")
         fi
@@ -83,7 +83,6 @@ if [ "$INTERACTIVE" = true ]; then
         TRUE "Specific Apps" \
         --width=600 --height=400 )
     
-    # FIX SC2320: Capture exit code immediately before running echo
     exit_code=$?
     echo -e ""
 
@@ -100,7 +99,8 @@ fi
 if [ "$user_choice" == "All Apps" ]; then
     echo -e "Starting installation of ALL applications..."
     for app in "${apps_to_install[@]}"; do
-        app_name=$(echo "$app" | cut -d ':' -f 1)
+        # FIX: Added | xargs to trim whitespace
+        app_name=$(echo "$app" | cut -d ':' -f 1 | xargs)
         check_and_install "$app_name"
     done
 else
@@ -114,7 +114,6 @@ else
         --separator=" " \
         --width=800 --height=600 )
     
-    # FIX SC2320: Capture exit code immediately
     exit_code=$?
     
     if [ $exit_code -eq 1 ]; then
@@ -123,9 +122,10 @@ else
     fi
     
     # shellcheck disable=SC2086 
-    # (We disable SC2086 here because we WANT word splitting for the list from Zenity)
     for app in $apps_selected; do
-        check_and_install "$app"
+        # FIX: Ensure trimmed
+        clean_app=$(echo "$app" | xargs)
+        check_and_install "$clean_app"
     done
 fi
 
