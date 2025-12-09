@@ -9,10 +9,10 @@ NC='\033[0m' # No Color
 # File path
 LIST='./apt_apps.txt'
 
-# Default to Interactive Mode (GUI enabled)
+# Default to Interactive Mode
 INTERACTIVE=true
 
-# Check for arguments (flags) to enable headless/auto mode
+# Check for arguments
 for arg in "$@"; do
     if [ "$arg" == "--auto" ] || [ "$arg" == "--ci" ]; then
         INTERACTIVE=false
@@ -22,13 +22,11 @@ done
 
 # Function to check if a package is installed and uninstall it
 check_and_uninstall() {
-    # FIX: Use 'dpkg -s' instead of 'which' to verify if the package is truly installed
+    # FIX SC2086: Quoted $1
     if dpkg -s "$1" &> /dev/null; then
         echo -e "${RED}Removing $1...${NC}"
-        # DEBIAN_FRONTEND=noninteractive prevents apt from popping up dialogs
-        sudo DEBIAN_FRONTEND=noninteractive apt remove -y "$1"
-        
-        if [ $? -eq 0 ]; then
+        # FIX SC2181: Check exit code directly
+        if sudo DEBIAN_FRONTEND=noninteractive apt remove -y "$1"; then
             echo -e "${RED}$1 removal successful.${NC}"
             removed_apps+=("$1")
         else
@@ -37,7 +35,6 @@ check_and_uninstall() {
         fi
     else
         echo -e "${GREEN}$1 is not installed (skipping).${NC}"
-        # We don't add it to 'not_removed_apps' as error, because it wasn't there to begin with
     fi
 }
 
@@ -45,41 +42,35 @@ check_and_uninstall() {
 removed_apps=()
 not_removed_apps=()
 
-# Check if the list file exists
+# Check if file exists
 if [ ! -f "$LIST" ]; then
     echo -e "${RED}File $LIST not found!${NC}"
     exit 1
 fi
 
-# Read applications from the text file, skip empty lines and lines starting with '#' 
-mapfile -t apps_to_uninstall < <(grep -vE '^(#|$)' ${LIST})
-
+# Read applications
+mapfile -t apps_to_uninstall < <(grep -vE '^(#|$)' "${LIST}")
 
 # --- USER SELECTION LOGIC ---
 
 if [ "$INTERACTIVE" = true ]; then
-    # Prepare the options for Zenity checklist
     zenity_options=()
     current_category=""
     while IFS= read -r line; do
-        # Skip empty lines
-        if [[ -z "$line" ]]; then
-            continue
-        fi
-        # Check for category lines
+        if [[ -z "$line" ]]; then continue; fi
+        
         if [[ $line =~ ^# ]]; then
-            current_category=$(echo $line | sed 's/^# //')
+            # FIX SC2001: Use bash string manipulation
+            current_category=${line#\# }
         else
-            name=$(echo $line | cut -d ':' -f 1)
-            description=$(echo $line | cut -d ':' -f 2)
-            if [[ -z "$description" ]]; then
-                description="No description available"
-            fi
+            # FIX SC2086: Quoted $line
+            name=$(echo "$line" | cut -d ':' -f 1)
+            description=$(echo "$line" | cut -d ':' -f 2)
+            if [[ -z "$description" ]]; then description="No description available"; fi
             zenity_options+=("FALSE" "$name" "$current_category: $description")
         fi
-    done < ${LIST}
+    done < "${LIST}"
 
-    # Ask if the user wants to uninstall all applications or choose
     user_choice=$(zenity --list \
         --title="Uninstallation Option" \
         --text="Do you want to uninstall all applications or choose specific ones?" \
@@ -87,33 +78,28 @@ if [ "$INTERACTIVE" = true ]; then
         --column="Select" --column="Uninstall Option" \
         FALSE "All Apps" \
         TRUE "Specific Apps" \
-        --width=600 \
-        --height=400 \
-    )
+        --width=600 --height=400 )
+    
+    # FIX SC2320: Capture exit code immediately
+    exit_code=$?
     echo -e ""
 
-    # Check if the user pressed Cancel or closed the dialog
-    if [ $? -eq 1 ]; then
+    if [ $exit_code -eq 1 ]; then
         echo -e "${RED}Operation cancelled.${NC}"
         exit 1
     fi
 else
-    # AUTOMATED MODE: Default to "All Apps"
     user_choice="All Apps"
 fi
-
 
 # --- UNINSTALLATION LOGIC ---
 
 if [ "$user_choice" == "All Apps" ]; then
-    # Uninstall all applications found in the list
-    echo -e "Starting uninstallation of ALL listed applications..."
     for app in "${apps_to_uninstall[@]}"; do
-        app_name=$(echo $app | cut -d ':' -f 1)
+        app_name=$(echo "$app" | cut -d ':' -f 1)
         check_and_uninstall "$app_name"
     done
 else
-    # Use zenity to select applications (Only in Interactive Mode)
     apps_selected=$(zenity --list \
         --title="Select Applications to Uninstall" \
         --checklist \
@@ -122,41 +108,33 @@ else
         --column="Description" \
         "${zenity_options[@]}" \
         --separator=" " \
-        --width=600 \
-        --height=400 \
-    )
-    # Check if the user pressed Cancel or closed the dialog
-    if [ $? -eq 1 ]; then
+        --width=600 --height=400 )
+    
+    # FIX SC2320: Capture exit code immediately
+    exit_code=$?
+
+    if [ $exit_code -eq 1 ]; then
         echo -e "${RED}Operation cancelled.${NC}"
         exit 1
     fi
-    # Uninstall selected applications
+    
+    # shellcheck disable=SC2086
+    # (We disable SC2086 here because we WANT word splitting for the list from Zenity)
     for app in $apps_selected; do
         check_and_uninstall "$app"
     done
 fi
 
-
 # --- SUMMARY ---
 
-# Summary of removed applications
 if [ ${#removed_apps[@]} -ne 0 ]; then
     echo -e "\n${RED}Removed applications:${NC}"
-    for app in "${removed_apps[@]}"; do
-        echo -e "${RED}- $app${NC}"
-    done
+    for app in "${removed_apps[@]}"; do echo -e "${RED}- $app${NC}"; done
 fi
 
-# Summary of applications that failed to remove
 if [ ${#not_removed_apps[@]} -ne 0 ]; then
     echo -e "\n${YELLOW}Issues removing:${NC}"
-    for app in "${not_removed_apps[@]}"; do
-        echo -e "${YELLOW}- $app${NC}"
-    done
+    for app in "${not_removed_apps[@]}"; do echo -e "${YELLOW}- $app${NC}"; done
 fi
-
-# Optional: Run autoremove to clean up unused dependencies
-# echo -e "\nCleaning up unused dependencies..."
-# sudo apt autoremove -y
 
 echo -e "\n${GREEN}Done!\n${NC}"
