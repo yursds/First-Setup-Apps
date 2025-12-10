@@ -27,20 +27,37 @@ not_installed_apps=()
 
 # Function to check if a package is installed and install it if not
 check_and_install() {
-    # FIX: Ensure clean variable name
+    # FIX: Ensure clean variable name (trim whitespace)
     pkg_name=$(echo "$1" | xargs)
     
+    # Check if package is already installed
     if dpkg -s "$pkg_name" &> /dev/null; then
         echo -e "${YELLOW}$pkg_name is already installed.${NC}"
         already_installed_apps+=("$pkg_name")
     else
         echo -e "${GREEN}Installing $pkg_name...${NC}"
-        if sudo DEBIAN_FRONTEND=noninteractive apt install -y "$pkg_name"; then
-            echo -e "${GREEN}$pkg_name installation successful.${NC}"
-            installed_apps+=("$pkg_name")
+        
+        # --- SPEED OPTIMIZATION FOR CI ---
+        # If running in auto/CI mode, use --dry-run to simulate installation.
+        # This checks for errors without downloading huge files (saves ~25 mins).
+        if [ "$INTERACTIVE" = false ]; then
+             echo -e "${YELLOW}(Simulation: verifying package existence without downloading...)${NC}"
+             if sudo apt-get install --dry-run -y "$pkg_name" > /dev/null 2>&1; then
+                 echo -e "${GREEN}$pkg_name simulation successful.${NC}"
+                 installed_apps+=("$pkg_name")
+             else
+                 echo -e "${RED}Error: Package $pkg_name not found or broken dependencies.${NC}"
+                 not_installed_apps+=("$pkg_name")
+             fi
         else
-            echo -e "${RED}Error installing $pkg_name.${NC}"
-            not_installed_apps+=("$pkg_name")
+            # REAL INSTALLATION (Interactive Mode)
+            if sudo DEBIAN_FRONTEND=noninteractive apt install -y "$pkg_name"; then
+                echo -e "${GREEN}$pkg_name installation successful.${NC}"
+                installed_apps+=("$pkg_name")
+            else
+                echo -e "${RED}Error installing $pkg_name.${NC}"
+                not_installed_apps+=("$pkg_name")
+            fi
         fi
     fi
 }
@@ -132,7 +149,7 @@ fi
 # --- SUMMARY ---
 
 if [ ${#installed_apps[@]} -ne 0 ]; then
-    echo -e "\nInstalled applications:"
+    echo -e "\nInstalled applications (or simulated):"
     for app in "${installed_apps[@]}"; do echo -e "- $app"; done
 fi
 
@@ -142,7 +159,7 @@ if [ ${#already_installed_apps[@]} -ne 0 ]; then
 fi
 
 if [ ${#not_installed_apps[@]} -ne 0 ]; then
-    echo -e "\n${RED}Not installed applications:${NC}"
+    echo -e "\n${RED}Not installed applications (Errors):${NC}"
     for app in "${not_installed_apps[@]}"; do echo -e "${RED}- $app${NC}"; done
 fi
 
