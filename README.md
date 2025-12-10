@@ -1,5 +1,7 @@
 # Applications for Fast Setup on Ubuntu
 
+[![Bash Script CI](https://github.com/yursds/First-Setup-Apps/actions/workflows/ci.yml/badge.svg)](https://github.com/yursds/First-Setup-Apps/actions/workflows/ci.yml)
+
 ## Table of Contents 
 - [Overview](#overview) 
    - [List of apps](#list-of-apps) 
