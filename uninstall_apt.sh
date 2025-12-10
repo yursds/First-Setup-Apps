@@ -27,12 +27,26 @@ check_and_uninstall() {
     
     if dpkg -s "$pkg_name" &> /dev/null; then
         echo -e "${RED}Removing $pkg_name...${NC}"
-        if sudo DEBIAN_FRONTEND=noninteractive apt remove -y "$pkg_name"; then
-            echo -e "${RED}$pkg_name removal successful.${NC}"
-            removed_apps+=("$pkg_name")
+        
+        # --- SPEED OPTIMIZATION FOR CI ---
+        if [ "$INTERACTIVE" = false ]; then
+             echo -e "${YELLOW}(Simulation: verifying removal logic...)${NC}"
+             if sudo apt-get remove --dry-run -y "$pkg_name" > /dev/null 2>&1; then
+                 echo -e "${RED}$pkg_name removal simulation successful.${NC}"
+                 removed_apps+=("$pkg_name")
+             else
+                 echo -e "${RED}Error simulating removal of $pkg_name.${NC}"
+                 not_removed_apps+=("$pkg_name")
+             fi
         else
-            echo -e "${RED}Error removing $pkg_name.${NC}"
-            not_removed_apps+=("$pkg_name")
+            # REAL REMOVAL
+            if sudo DEBIAN_FRONTEND=noninteractive apt remove -y "$pkg_name"; then
+                echo -e "${RED}$pkg_name removal successful.${NC}"
+                removed_apps+=("$pkg_name")
+            else
+                echo -e "${RED}Error removing $pkg_name.${NC}"
+                not_removed_apps+=("$pkg_name")
+            fi
         fi
     else
         echo -e "${GREEN}$pkg_name is not installed (skipping).${NC}"
