@@ -1,3 +1,5 @@
+
+
 # Applications for Fast Setup on Ubuntu
 
 [![Bash Script CI](https://github.com/yursds/First-Setup-Apps/actions/workflows/ci.yml/badge.svg)](https://github.com/yursds/First-Setup-Apps/actions/workflows/ci.yml)
@@ -86,10 +88,11 @@ The following commands should be run from the main directory, which is named `Fi
 
 ### Installation
 
-Run in the terminal from the main folder `First_Setup_Apps`:
+Run in the terminal from the main folder `First-Setup-Apps`:
    ```bash
    ./install_apt.sh
    ```
+   > **Tip**: Append `--auto` (e.g., `./install_apt.sh --auto`) for headless or CI environments that do not have a GUI.
 
 ### Uninstallation
 Run in the terminal from the main folder `First_Setup_Apps`:
